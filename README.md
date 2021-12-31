@@ -1,4 +1,7 @@
 
+# Demo
+https://lit-deploy.gtc-lightanson.workers.dev/?url=https://github.com/websaam/lit-cloudflare-frontend
+
 # Instruction
 This repo consists of two apps:
 1. Front-end -> `app` and 
