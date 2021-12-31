@@ -1,0 +1,22 @@
+{
+  "name": "deploy-to-cf-workers",
+  "private": true,
+  "workspaces": [
+    "app",
+    "worker"
+  ],
+  "version": "1.0.0",
+  "description": "deploy to cloudflare workers!",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "deploy": "yarn workspaces run publish",
+    "prepare": "echo '---DEV---' && cd worker && wrangler kv:namespace create --preview 'AUTH_STORE' && echo '---PROD---' && wrangler kv:namespace create 'AUTH_STORE'",
+    "start-app": "cd app && yarn start",
+    "commit": "git add .github && git add app && git add worker && git commit -m 'ci: test' && git push",
+    "wrangler dev": "wrangler dev --env development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

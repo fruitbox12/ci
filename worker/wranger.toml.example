@@ -1,0 +1,26 @@
+name = "lit-deploy"
+type = "webpack"
+account_id = "{{ REPLACE ME }}"
+zone_id = ""
+route = ""
+
+kv-namespaces = [
+  { binding = "AUTH_STORE", id = "{{ REPLACE ME }}", preview_id = "{{ REPLACE ME }}" }
+]
+
+site = {bucket = "../app/build", entry-point="workers-site"}
+
+compatibility_date = "2021-12-31"
+
+[vars]
+CLIENT_ID = "{{ REPLACE ME }}"
+CLIENT_SECRET = "{{ REPLACE ME }}"
+
+[env.development]
+workers_dev = true
+
+kv-namespaces = [
+  { binding = "AUTH_STORE", preview_id = "{{ REPLACE ME }}", id = "{{ REPLACE ME }}" }
+]
+
+vars = { CLIENT_ID = "{{ REPLACE ME }}", CLIENT_SECRET = "{{ REPLACE ME }}" }
