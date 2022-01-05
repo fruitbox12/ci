@@ -1,13 +1,15 @@
-
 # Demo
-https://lit-deploy.gtc-lightanson.workers.dev/?url=https://github.com/websaam/lit-cloudflare-frontend
+
+https://cf-deploy.lit-protocol.workers.dev/?url=https://github.com/LIT-Protocol/lit-cloudflare-frontend
 
 # Instruction
+
 This repo consists of two apps:
-1. Front-end -> `app` and 
+
+1. Front-end -> `app` and
 2. Backend -> `worker`
 
-To start development locally, you will need to setup your `./worker/wrangler.toml` which you will need to run following commands to create a 
+To start development locally, you will need to setup your `./worker/wrangler.toml` which you will need to run following commands to create a
 key/value (KV) database on CloudFlare for both development and productions. Please look at `./worker/wrangler.toml.example` as an example.
 
 ```
