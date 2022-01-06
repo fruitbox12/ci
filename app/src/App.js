@@ -90,7 +90,9 @@ const App = () => {
   const [email, setEmail] = useState(null);
   const [workerName, setWorkerName] = useState(null);
   const [jwtWhitelist, setJwtWhitelist] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState(
+    "https://github.com/LIT-Protocol/lit-cloudflare-frontend"
+  );
   const [forkedRepo, setForkedRepo] = useState(null);
   const [edgeState] = useContext(EdgeStateContext);
   const [debug, setDebug] = useState(false);
@@ -110,9 +112,9 @@ const App = () => {
   // persist the auth data. If that case is found, refresh the page and we
   // should have a persisted auth value
   useEffect(() => {
-    const el = document.querySelector("#edge_state")
+    const el = document.querySelector("#edge_state");
     if (el && el.innerText) {
-      const edgeStateInnerText = el.innerText
+      const edgeStateInnerText = el.innerText;
       const _edgeState = JSON.parse(edgeStateInnerText);
 
       if (_edgeState.state.authed && !_edgeState.state.accessToken) {
@@ -123,30 +125,33 @@ const App = () => {
 
   useEffect(() => {
     const windowUrl = new URL(window.location);
-    const url = windowUrl.searchParams.get("url");
 
-    // Validate URL query parameter actually legitimate to prevent XSS
-    try {
-      const parsedURL = new URL(url);
-      if (parsedURL.protocol !== "http:" && parsedURL.protocol !== "https:") {
+    // this script now provides a default hardcoded URL
+    const url = windowUrl.searchParams.get("url");
+    if (url) {
+      // Validate URL query parameter actually legitimate to prevent XSS
+      try {
+        const parsedURL = new URL(url);
+        if (parsedURL.protocol !== "http:" && parsedURL.protocol !== "https:") {
+          send("NO_URL");
+        }
+      } catch (_) {
         send("NO_URL");
       }
-    } catch (_) {
-      send("NO_URL");
-    }
 
-    const lsUrl = get("url");
-    if (url) {
-      setUrl(url);
+      const lsUrl = get("url");
+      if (url) {
+        setUrl(url);
 
-      // New URL found that doesn't match LS,
-      // need to clear all cache and start over
-      if (lsUrl !== url) {
-        clear();
-        set("url", url);
+        // New URL found that doesn't match LS,
+        // need to clear all cache and start over
+        if (lsUrl !== url) {
+          clear();
+          set("url", url);
+        }
+      } else {
+        lsUrl ? setUrl(lsUrl) : send("NO_URL");
       }
-    } else {
-      lsUrl ? setUrl(lsUrl) : send("NO_URL");
     }
 
     const lsForkedRepo = get("forkedRepo");
@@ -168,27 +173,32 @@ const App = () => {
   }, [send, edgeState]);
 
   const fork = async ({ accountId, apiToken, event }) => {
+    const usernameRes = await fetch(`/user`, {
+      method: "POST",
+      body: JSON.stringify({
+        accountId,
+        apiToken,
+        email,
+      }),
+    });
 
-      const usernameRes = await fetch(`/user`, {
-        method: "POST",
-        body: JSON.stringify({
-          accountId,
-          apiToken,
-          email,
-        }),
-      });
-  
-      const username = await usernameRes.json();
+    const username = await usernameRes.json();
 
-      const _baseWhitelist = `${workerName}.${username}.workers.dev,test.dev`;
+    const _baseWhitelist = `${workerName}.${username}.workers.dev,test.dev`;
 
-      window.deployingUrl = `https://${workerName}.${username}.workers.dev`;
+    window.deployingUrl = `https://${workerName}.${username}.workers.dev`;
 
-      const _jwtWhitelist = jwtWhitelist == '' ? 
-        _baseWhitelist : 
-        (_baseWhitelist + ',' + jwtWhitelist).replaceAll(" ", "").toLowerCase();
+    const _jwtWhitelist =
+      jwtWhitelist == ""
+        ? _baseWhitelist
+        : (_baseWhitelist + "," + jwtWhitelist)
+            .replaceAll(" ", "")
+            .toLowerCase();
 
-    console.log("Your JWT Whitelist, to edit please change it at your repo and rebuild the worker", _jwtWhitelist);
+    console.log(
+      "Your JWT Whitelist, to edit please change it at your repo and rebuild the worker",
+      _jwtWhitelist
+    );
 
     const regex = /github.com\/(?<owner>[^/]+)\/(?<repo>[^/]+)/;
     let urlToMatch = url;
@@ -305,7 +315,7 @@ const App = () => {
   const in_progress = (
     <div className="flex flex-col items-center min-h-screen">
       <a
-        href="https://workers.cloudflare.com"
+        href="https://litprotocol.com"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -316,8 +326,10 @@ const App = () => {
         <div className="min-w-4xl max-w-4xl flex-2 min-h-full z-10 bg-white rounded-lg border border-gray-7 flex flex-col pt-6 pb-10 px-10">
           <div className="flex items-center">
             <h1 className="text-header flex-1" onClick={() => setDebug(!debug)}>
-              Deploy to Workers{" "}
+              Deploy the Lit Protocol Cloudflare Worker to your own Cloudflare
+              account{" "}
             </h1>
+
             {debug && (
               <p className="p-1 text-right bg-gray-200 font-mono">
                 <span role="img" aria-label="Wrench">
@@ -326,6 +338,19 @@ const App = () => {
                 {current.value}
               </p>
             )}
+          </div>
+          <div>
+            <p className="p-1">
+              This will deploy a Cloudflare worker that is able to gate videos
+              and livestreams via the Lit Protocol. The worker's job is to
+              provision access to authorized users.
+            </p>
+          </div>
+          <div>
+            <p className="p-1">
+              You'll need a GitHub account and a Cloudflare account to complete
+              this process
+            </p>
           </div>
           <div className="py-4">{url ? <Embed url={url} /> : null}</div>
           <div className="pt-4 flex-1 max-w-2xl">
