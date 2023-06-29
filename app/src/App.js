@@ -314,7 +314,6 @@ const App = () => {
 
   const in_progress = (
     <div className="flex flex-col items-center min-h-screen">
-        <iframe src="https://mesh-xi.vercel.app/" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border: none; z-index: -1;"></iframe>
 
       <a
         href="https://litprotocol.com"
