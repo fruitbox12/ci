@@ -20,7 +20,7 @@
   --green-1: #104122;
   --green-8: #BDEFCF;
   --indigo-1: #000000;
-  --indigo-9: #F1F0Fc;
+  --indigo-9: #000000;
 }
 
 .bg-blue-4 {
@@ -103,7 +103,7 @@ body {
   font-size: 16px;
   color: var(--gray-1);
   background-color: var(--gray-9); 
-  background-color: #f0f0f0 !important; 
+  background-color: #000000 !important; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
