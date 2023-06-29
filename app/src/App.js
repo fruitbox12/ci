@@ -326,7 +326,7 @@ const App = () => {
         <div className="min-w-4xl max-w-4xl flex-2 min-h-full z-10 bg-white rounded-lg border border-gray-7 flex flex-col pt-6 pb-10 px-10">
           <div className="flex items-center">
             <h1 className="text-header flex-1" onClick={() => setDebug(!debug)}>
-              Deploy the Lit Protocol Cloudflare Worker to your own Cloudflare
+              Deploy and Verify your Shadow Node from the Lit Protocol to your own Shadow
               account{" "}
             </h1>
 
@@ -341,8 +341,7 @@ const App = () => {
           </div>
           <div>
             <p className="p-1">
-              This will deploy a Cloudflare worker that is able to gate videos
-              and livestreams via the Lit Protocol. The worker's job is to
+              This will deploy a Shadow Node that is able to gate cloud via the Lit Protocol. The worker's job is to
               provision access to authorized users.
             </p>
           </div>
