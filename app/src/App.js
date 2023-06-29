@@ -325,7 +325,7 @@ const App = () => {
         <div className="flex-1" />
         <div className="min-w-4xl max-w-4xl flex-2 min-h-full z-10 bg-black rounded-lg border border-gray-7 flex flex-col pt-6 pb-10 px-10">
           <div className="flex items-center">
-            <h1 className="text-header flex-1" onClick={() => setDebug(!debug)}>
+            <h1 className="text-header flex-1" style={{color: "white"}} onClick={() => setDebug(!debug)}>
               Deploy and Verify your Shadow Node from the Lit Protocol to your own Shadow
               account{" "}
             </h1>
