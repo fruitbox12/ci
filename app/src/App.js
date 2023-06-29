@@ -323,7 +323,7 @@ const App = () => {
       </a>
       <div className="flex">
         <div className="flex-1" />
-        <div className="min-w-4xl max-w-4xl flex-2 min-h-full z-10 bg-white rounded-lg border border-gray-7 flex flex-col pt-6 pb-10 px-10">
+        <div className="min-w-4xl max-w-4xl flex-2 min-h-full z-10 bg-black rounded-lg border border-gray-7 flex flex-col pt-6 pb-10 px-10">
           <div className="flex items-center">
             <h1 className="text-header flex-1" onClick={() => setDebug(!debug)}>
               Deploy and Verify your Shadow Node from the Lit Protocol to your own Shadow
@@ -347,7 +347,7 @@ const App = () => {
           </div>
           <div>
             <p className="p-1">
-              You'll need a GitHub account and a Cloudflare account to complete
+              You'll need a Git Provider and a Shadow Node to complete
               this process
             </p>
           </div>
