@@ -103,8 +103,6 @@ body {
     "Helvetica Neue", sans-serif;
   font-size: 16px;
   color: var(--gray-1);
-  background-color: var(--gray-9); 
-  background-color: #000000 !important; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
