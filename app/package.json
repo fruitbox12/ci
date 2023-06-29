@@ -16,8 +16,8 @@
   },
   "scripts": {
     "publish": "echo noop",
-    "start": "npm run watch:css && react-scripts start",
-    "build": "npm run build:css && react-scripts build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && npm run watch:css && react-scripts start",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:css": "./node_modules/.bin/postcss src/tailwind.css -o src/main.css",
