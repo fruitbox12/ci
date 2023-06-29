@@ -23,7 +23,10 @@
   --indigo-9: #000000;
   color: white;
 }
+.body {
 
+color: white;
+}
 .bg-blue-4 {
   background-color: var(--blue-4);
 }
